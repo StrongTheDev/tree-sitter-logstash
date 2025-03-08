@@ -1,0 +1,40 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "logstash",
+      "camelcase": "LogStash",
+      "title": "LogStash Configuration",
+      "scope": "source.logstash",
+      "file-types": [
+        "conf"
+      ],
+      "injection-regex": "^logstash$",
+      "class-name": "TreeSitterLogstash"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "A parser for LogStash Configuration \".conf\" files",
+    "authors": [
+      {
+        "name": "Agani Daniel Strong",
+        "email": "adhueywilan@gmail.com",
+        "url": "https://t.me/strongthedev"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/danielhuey/tree-sitter-logstash"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
