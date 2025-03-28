@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 keywords = ["incremental", "parsing", "tree-sitter", "logstash"]
 categories = ["parser-implementations", "parsing", "text-editors"]
-repository = "https://github.com/danielhuey/tree-sitter-logstash"
+repository = "https://github.com/StrongTheDev/tree-sitter-logstash"
 edition = "2021"
 autoexamples = false
 

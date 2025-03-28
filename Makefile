@@ -3,7 +3,7 @@ $(error Windows is not supported)
 endif
 
 LANGUAGE_NAME := tree-sitter-logstash
-HOMEPAGE_URL := https://github.com/danielhuey/tree-sitter-logstash
+HOMEPAGE_URL := https://github.com/StrongTheDev/tree-sitter-logstash
 VERSION := 0.1.0
 
 # repository

@@ -1,4 +1,4 @@
-module github.com/danielhuey/tree-sitter-logstash
+module github.com/StrongTheDev/tree-sitter-logstash
 
 go 1.22
 

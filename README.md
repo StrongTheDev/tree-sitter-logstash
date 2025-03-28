@@ -14,7 +14,7 @@ Other installation options are available at [the official tree-sitter website](h
 Next, clone the repository and run the tree-sitter CLI:
 
 ```
-git clone https://github.com/danielhuey/tree-sitter-logstash
+git clone https://github.com/StrongTheDev/tree-sitter-logstash
 cd tree-sitter-logstash
 tree-sitter generate
 tree-sitter parse .\test-file.conf

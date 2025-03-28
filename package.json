@@ -2,7 +2,7 @@
   "name": "tree-sitter-logstash",
   "version": "0.1.0",
   "description": "A parser for LogStash Configuration \".conf\" files",
-  "repository": "https://github.com/danielhuey/tree-sitter-logstash",
+  "repository": "https://github.com/StrongTheDev/tree-sitter-logstash",
   "license": "MIT",
   "author": {
     "name": "Agani Daniel Strong",

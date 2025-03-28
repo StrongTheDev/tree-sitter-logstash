@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.13)
 project(tree-sitter-logstash
         VERSION "0.1.0"
         DESCRIPTION "A parser for LogStash Configuration \".conf\" files"
-        HOMEPAGE_URL "https://github.com/danielhuey/tree-sitter-logstash"
+        HOMEPAGE_URL "https://github.com/StrongTheDev/tree-sitter-logstash"
         LANGUAGES C)
 
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
