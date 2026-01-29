@@ -82,7 +82,7 @@ module.exports = grammar({
     ),
 
     whitespace: $ => /\s+/,
-    comment: $ => seq('#', /.*\n?/),
+    comment: $ => seq('#', /.*?/),
     newline: $ => /\n/,
 
     string: $ => /"([^"\\]|\\.)*"/,
