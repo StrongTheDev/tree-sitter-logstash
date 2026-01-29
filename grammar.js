@@ -12,8 +12,7 @@ module.exports = grammar({
   
   extras: $ => [
     $.whitespace,
-    $.comment,
-    $.newline
+    $.comment
   ],
   
   conflicts: $ => [
@@ -57,8 +56,6 @@ module.exports = grammar({
       $.block
     ),
 
-    plugin_name: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
-
     expression: $ => seq(
       $.expression_key,
       "=>",
@@ -81,15 +78,13 @@ module.exports = grammar({
       $.array
     ),
 
-    whitespace: $ => /\s+/,
+    whitespace: $ => /[ \t\r\n]+/,
     comment: $ => /#[^\n]*/,
-    newline: $ => /\n/,
 
-    string: $ => /"([^"\\]|\\.)*"/,
-
-    number: $ => /\d+(\.\d+)?/,
-
-    boolean: $ => choice('true', 'false'),
+    string: $ => token(/"([^"\\]|\\.)*"/),
+    plugin_name: $ => token(/[a-zA-Z_][a-zA-Z0-9_]*/),
+    number: $ => token(/\d+(\.\d+)?/),
+    boolean: $ => token(choice('true', 'false')),
 
     array: $ => seq(
       '[',
