@@ -79,9 +79,10 @@ module.exports = grammar({
     ),
 
     whitespace: $ => /[ \t\r\n]+/,
-    comment: $ => /#[^\n]*/,
+    comment: $ => /^\s*#[^\n]*/,
 
     string: $ => token(/"([^"\\]|\\.)*"/),
+    string_var: $ => token(/%\{[^}]+\}/),
     plugin_name: $ => token(/[a-zA-Z_][a-zA-Z0-9_]*/),
     number: $ => token(/\d+(\.\d+)?/),
     boolean: $ => token(choice('true', 'false')),
