@@ -139,8 +139,8 @@ module.exports = grammar({
     string_var: ($) =>
       token(
         choice(
-          /%\{\{TIME_NOW\}\}/,  // double-brace special case
-          /%\{[^}]+\}/,         // single-brace field reference / sprintf
+          /%\{\{[^}]+\}\}/, 
+          /%\{[^}]+\}/, 
         ),
       ),
 
