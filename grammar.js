@@ -105,7 +105,8 @@ module.exports = grammar({
     //   prec(2, seq('{', repeat($.block_content), '}')),
 
     block_content: ($) => choice(prec(1, $.expression), $.assignment, $.block),
-    assignment: ($) => seq($.expression_key, token(prec(-1, '=')), $.expression_value),
+    assignment: ($) =>
+      seq($.expression_key, token(prec(-1, '=')), $.expression_value),
 
     expression: ($) =>
       seq($.expression_key, '=>', choice(prec(1, $.expression_value), $.block)),
@@ -127,22 +128,16 @@ module.exports = grammar({
     comment: ($) => token(prec(-10, /#[^\r\n]*/)),
 
     string: ($) => choice($.double_quoted_string, $.single_quoted_string),
-    
+
     double_quoted_string: ($) =>
       seq('"', repeat(choice($.double_quoted_content, $.string_var)), '"'),
-    
-    single_quoted_string: ($) =>
-      seq("'", repeat($.single_quoted_content), "'"),
-    
-    double_quoted_content: ($) => token(prec(2, /[^"\\%]+|\\./ )),
-    single_quoted_content: ($) => token(prec(2, /[^'\\]+|\\./ )),
+
+    single_quoted_string: ($) => seq("'", repeat($.single_quoted_content), "'"),
+
+    double_quoted_content: ($) => token(prec(2, /[^"\\%]+|\\./)),
+    single_quoted_content: ($) => token(prec(2, /[^'\\]+|\\./)),
     string_var: ($) =>
-      token(
-        choice(
-          /%\{\{[^}]+\}\}/, 
-          /%\{[^}]+\}/, 
-        ),
-      ),
+      token(choice(seq('%{{', /[^}]+/, '}'), seq('%{', /[^}]+/, '}'))),
 
     plugin_name: ($) => token(/[a-zA-Z_][a-zA-Z0-9_]*/),
     number: ($) => token(/\d+(\.\d+)?/),
