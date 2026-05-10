@@ -56,7 +56,17 @@
     "type": "comment",
     "named": true,
     "extra": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "whitespace",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "expression",
@@ -208,13 +218,26 @@
     }
   },
   {
-    "type": "whitespace",
+    "type": "string",
     "named": true,
-    "extra": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "string_content",
+          "named": true
+        },
+        {
+          "type": "string_var",
+          "named": true
+        }
+      ]
+    }
   },
   {
-    "type": "#",
+    "type": "\"",
     "named": false
   },
   {
@@ -262,8 +285,18 @@
     "named": true
   },
   {
-    "type": "string",
+    "type": "string_content",
     "named": true
+  },
+  {
+    "type": "string_var",
+    "named": true,
+    "extra": true
+  },
+  {
+    "type": "whitespace",
+    "named": true,
+    "extra": true
   },
   {
     "type": "{",

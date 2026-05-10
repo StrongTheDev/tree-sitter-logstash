@@ -203,30 +203,63 @@
     },
     "whitespace": {
       "type": "PATTERN",
-      "value": "\\s+"
+      "value": "\\s"
     },
     "comment": {
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "#"
+          "type": "PATTERN",
+          "value": "#\\s?"
         },
         {
           "type": "PATTERN",
           "value": ".*"
         },
         {
-          "type": "PATTERN",
-          "value": "\\s+"
+          "type": "SYMBOL",
+          "name": "whitespace"
         }
       ]
     },
     "string": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "string_content"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "string_var"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
+    },
+    "string_content": {
       "type": "TOKEN",
       "content": {
-        "type": "PATTERN",
-        "value": "\"([^\"\\\\]|\\\\.)*\""
+        "type": "PREC",
+        "value": 2,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\"\\\\%]+|\\\\"
+        }
       }
     },
     "string_var": {
@@ -312,6 +345,10 @@
     {
       "type": "SYMBOL",
       "name": "comment"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "string_var"
     }
   ],
   "conflicts": [

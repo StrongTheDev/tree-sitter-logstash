@@ -9,88 +9,55 @@
 
 module.exports = grammar({
   name: 'logstash',
-  
-  extras: $ => [
-    $.whitespace,
-    $.comment
-  ],
-  
-  conflicts: $ => [
-    [$.block, $.expression_value],
-  ],
+
+  extras: ($) => [$.whitespace, $.comment, $.string_var],
+
+  conflicts: ($) => [[$.block, $.expression_value]],
 
   rules: {
     // The entry point of the grammar
-    source_file: $ => repeat($.pipeline),
+    source_file: ($) => repeat($.pipeline),
 
-    pipeline: $ => choice(
-      $.input_section,
-      $.filter_section,
-      $.output_section
-    ),
+    pipeline: ($) =>
+      choice($.input_section, $.filter_section, $.output_section),
 
-    input_section: $ => seq(
-      'input',
-      repeat($.block)
-    ),
+    input_section: ($) => seq('input', repeat($.block)),
 
-    filter_section: $ => seq(
-      'filter',
-      repeat($.block)
-    ),
+    filter_section: ($) => seq('filter', repeat($.block)),
 
-    output_section: $ => seq(
-      'output',
-      repeat($.block)
-    ),
+    output_section: ($) => seq('output', repeat($.block)),
 
-    block: $ => seq(
-      optional($.plugin_name),
-      '{',
-      repeat($.block_content),
-      '}'
-    ),
-    
-    block_content: $ => choice(
-      prec(1, $.expression),
-      $.block
-    ),
+    block: ($) =>
+      seq(optional($.plugin_name), '{', repeat($.block_content), '}'),
 
-    expression: $ => seq(
-      $.expression_key,
-      "=>",
+    block_content: ($) => choice(prec(1, $.expression), $.block),
+
+    expression: ($) =>
+      seq($.expression_key, '=>', choice(prec(1, $.expression_value), $.block)),
+
+    expression_key: ($) => choice($.string, alias($.plugin_name, 'identifier')),
+
+    expression_value: ($) =>
       choice(
-        prec(1, $.expression_value),
-        $.block
-      )
-    ),
+        $.string,
+        alias($.plugin_name, 'identifier'),
+        $.number,
+        $.boolean,
+        $.array,
+      ),
 
-    expression_key: $ => choice(
-      $.string,
-      alias($.plugin_name, "identifier")
-    ),
-    
-    expression_value: $ => choice(
-      $.string,
-      alias($.plugin_name, "identifier"),
-      $.number,
-      $.boolean,
-      $.array
-    ),
+    whitespace: ($) => /\s/,
+    comment: ($) => seq(/#\s?/, /.*/, $.whitespace),
 
-    whitespace: $ => /\s+/,
-    comment: $ => seq('#', /.*/, /\s+/),
+    string: ($) =>
+      seq('"', repeat(choice($.string_content, $.string_var)), '"'),
+    string_content: ($) => token(prec(2, /[^"\\%]+|\\/)),
+    string_var: ($) => token(/%\{[^}]+\}/),
 
-    string: $ => token(/"([^"\\]|\\.)*"/),
-    string_var: $ => token(/%\{[^}]+\}/),
-    plugin_name: $ => token(/[a-zA-Z_][a-zA-Z0-9_]*/),
-    number: $ => token(/\d+(\.\d+)?/),
-    boolean: $ => token(choice('true', 'false')),
+    plugin_name: ($) => token(/[a-zA-Z_][a-zA-Z0-9_]*/),
+    number: ($) => token(/\d+(\.\d+)?/),
+    boolean: ($) => token(choice('true', 'false')),
 
-    array: $ => seq(
-      '[',
-      repeat(seq($.expression_value, optional(','))),
-      ']'
-    ),
-  }
-});
+    array: ($) => seq('[', repeat(seq($.expression_value, optional(','))), ']'),
+  },
+})
