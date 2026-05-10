@@ -126,12 +126,16 @@ module.exports = grammar({
     whitespace: ($) => /\s+/,
     comment: ($) => token(prec(-10, /#[^\r\n]*/)),
 
-    string: ($) =>
-      choice(
-        seq('"', repeat(choice($.string_content, $.string_var)), '"'),
-        seq("'", repeat(choice($.string_content, $.string_var)), "'"),
-      ),
-    string_content: ($) => token(prec(2, /[^"'\\%]+|\\./)),
+    string: ($) => choice($.double_quoted_string, $.single_quoted_string),
+    
+    double_quoted_string: ($) =>
+      seq('"', repeat(choice($.double_quoted_content, $.string_var)), '"'),
+    
+    single_quoted_string: ($) =>
+      seq("'", repeat($.single_quoted_content), "'"),
+    
+    double_quoted_content: ($) => token(prec(2, /[^"\\%]+|\\./ )),
+    single_quoted_content: ($) => token(prec(2, /[^'\\]+|\\./ )),
     string_var: ($) => token(/%\{[^}]+\}/),
 
     plugin_name: ($) => token(/[a-zA-Z_][a-zA-Z0-9_]*/),
