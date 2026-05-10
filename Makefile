@@ -4,7 +4,7 @@ endif
 
 LANGUAGE_NAME := tree-sitter-logstash
 HOMEPAGE_URL := https://github.com/StrongTheDev/tree-sitter-logstash
-VERSION := 0.1.1
+VERSION := 0.1.3
 
 # repository
 SRC_DIR := src
