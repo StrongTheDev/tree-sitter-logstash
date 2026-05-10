@@ -136,7 +136,13 @@ module.exports = grammar({
     
     double_quoted_content: ($) => token(prec(2, /[^"\\%]+|\\./ )),
     single_quoted_content: ($) => token(prec(2, /[^'\\]+|\\./ )),
-    string_var: ($) => token(/%\{[^}]+\}/),
+    string_var: ($) =>
+      token(
+        choice(
+          /%\{\{TIME_NOW\}\}/,  // double-brace special case
+          /%\{[^}]+\}/,         // single-brace field reference / sprintf
+        ),
+      ),
 
     plugin_name: ($) => token(/[a-zA-Z_][a-zA-Z0-9_]*/),
     number: ($) => token(/\d+(\.\d+)?/),
