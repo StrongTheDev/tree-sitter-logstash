@@ -53,13 +53,9 @@
     }
   },
   {
-    "type": "boolean",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "comment",
     "named": true,
+    "extra": true,
     "fields": {}
   },
   {
@@ -212,6 +208,12 @@
     }
   },
   {
+    "type": "whitespace",
+    "named": true,
+    "extra": true,
+    "fields": {}
+  },
+  {
     "type": "#",
     "named": false
   },
@@ -232,8 +234,8 @@
     "named": false
   },
   {
-    "type": "false",
-    "named": false
+    "type": "boolean",
+    "named": true
   },
   {
     "type": "filter",
@@ -246,11 +248,6 @@
   {
     "type": "input",
     "named": false
-  },
-  {
-    "type": "newline",
-    "named": true,
-    "extra": true
   },
   {
     "type": "number",
@@ -267,15 +264,6 @@
   {
     "type": "string",
     "named": true
-  },
-  {
-    "type": "true",
-    "named": false
-  },
-  {
-    "type": "whitespace",
-    "named": true,
-    "extra": true
   },
   {
     "type": "{",

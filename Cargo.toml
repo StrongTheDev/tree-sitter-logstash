@@ -1,7 +1,7 @@
 [package]
 name = "tree-sitter-logstash"
 description = "A parser for LogStash Configuration \".conf\" files"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Agani Daniel Strong <adhueywilan@gmail.com>"]
 license = "MIT"
 readme = "README.md"

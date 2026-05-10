@@ -79,7 +79,7 @@ module.exports = grammar({
     ),
 
     whitespace: $ => /\s+/,
-    comment: $ => /^\s*#\s*[^\n\r]*\s*$/,
+    comment: $ => seq('#', /.*/, /\s+/),
 
     string: $ => token(/"([^"\\]|\\.)*"/),
     string_var: $ => token(/%\{[^}]+\}/),
