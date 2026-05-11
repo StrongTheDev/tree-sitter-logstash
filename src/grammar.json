@@ -536,29 +536,37 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "expression_key"
+          "type": "FIELD",
+          "name": "key",
+          "content": {
+            "type": "SYMBOL",
+            "name": "expression_key"
+          }
         },
         {
           "type": "STRING",
           "value": "=>"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "PREC",
-              "value": 1,
-              "content": {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PREC",
+                "value": 1,
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "expression_value"
+                }
+              },
+              {
                 "type": "SYMBOL",
-                "name": "expression_value"
+                "name": "block"
               }
-            },
-            {
-              "type": "SYMBOL",
-              "name": "block"
-            }
-          ]
+            ]
+          }
         }
       ]
     },

@@ -13,10 +13,10 @@
 #define ALIAS_COUNT 1
 #define TOKEN_COUNT 40
 #define EXTERNAL_TOKEN_COUNT 0
-#define FIELD_COUNT 0
+#define FIELD_COUNT 2
 #define MAX_ALIAS_SEQUENCE_LENGTH 7
 #define MAX_RESERVED_WORD_SET_SIZE 0
-#define PRODUCTION_ID_COUNT 2
+#define PRODUCTION_ID_COUNT 3
 #define SUPERTYPE_COUNT 0
 
 enum ts_symbol_identifiers {
@@ -588,6 +588,27 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = false,
   },
+};
+
+enum ts_field_identifiers {
+  field_key = 1,
+  field_value = 2,
+};
+
+static const char * const ts_field_names[] = {
+  [0] = NULL,
+  [field_key] = "key",
+  [field_value] = "value",
+};
+
+static const TSMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+  [2] = {.index = 0, .length = 2},
+};
+
+static const TSFieldMapEntry ts_field_map_entries[] = {
+  [0] =
+    {field_key, 0},
+    {field_value, 2},
 };
 
 static const TSSymbol ts_alias_sequences[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE_LENGTH] = {
@@ -3777,7 +3798,7 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [246] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_output_section, 3, 0, 0),
   [248] = {.entry = {.count = 1, .reusable = true}}, SHIFT(82),
   [250] = {.entry = {.count = 1, .reusable = true}}, SHIFT(132),
-  [252] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_expression, 3, 0, 0),
+  [252] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_expression, 3, 0, 2),
   [254] = {.entry = {.count = 1, .reusable = true}}, SHIFT(9),
   [256] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_input_section, 4, 0, 0),
   [258] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_input_section_repeat1, 2, 0, 0),
@@ -3874,6 +3895,9 @@ TS_PUBLIC const TSLanguage *tree_sitter_logstash(void) {
     .small_parse_table_map = ts_small_parse_table_map,
     .parse_actions = ts_parse_actions,
     .symbol_names = ts_symbol_names,
+    .field_names = ts_field_names,
+    .field_map_slices = ts_field_map_slices,
+    .field_map_entries = ts_field_map_entries,
     .symbol_metadata = ts_symbol_metadata,
     .public_symbol_map = ts_symbol_map,
     .alias_map = ts_non_terminal_alias_map,
@@ -3886,7 +3910,7 @@ TS_PUBLIC const TSLanguage *tree_sitter_logstash(void) {
     .metadata = {
       .major_version = 0,
       .minor_version = 1,
-      .patch_version = 1,
+      .patch_version = 3,
     },
   };
   return &language;
