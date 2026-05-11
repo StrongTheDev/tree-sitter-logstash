@@ -109,7 +109,11 @@ module.exports = grammar({
       seq($.expression_key, token(prec(-1, '=')), $.expression_value),
 
     expression: ($) =>
-      seq($.expression_key, '=>', choice(prec(1, $.expression_value), $.block)),
+      seq(
+        field('key', $.expression_key),
+        '=>',
+        field('value', choice(prec(1, $.expression_value), $.block)),
+      ),
 
     expression_key: ($) => choice($.string, alias($.plugin_name, 'identifier')),
 
